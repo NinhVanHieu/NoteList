@@ -92,6 +92,7 @@ function Add() {
                   <input
                     type="date"
                     min={today}
+                    defaultValue={today}
                     className="form-control"
                     id="finished"
                     value={user.finish}
