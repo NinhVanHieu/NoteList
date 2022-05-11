@@ -16,6 +16,9 @@ function Add() {
     status: "UnComplete",
   });
   const dispatch = useDispatch();
+  const [info, setInfo]=useState(()=>{
+    return JSON.parse(localStorage.getItem('noteList')) ?? []
+  })
   const handleAdd = () => {
     setStatusName(user.name===''?true:false)
     setStatusDes(user.des===''?true:false)
@@ -27,6 +30,14 @@ function Add() {
           user,
         })
       );
+      user.name &&
+      user.des &&
+      setInfo((prev)=>{
+        const newInfo=[...prev,{ id: uuidv4(),
+          user}]
+          localStorage.setItem('noteList', JSON.stringify(newInfo))
+        return newInfo
+      })
       setUser({
         name: "",
         start: today,

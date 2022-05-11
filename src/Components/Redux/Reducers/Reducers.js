@@ -6,7 +6,7 @@ import { UPDATE_LIST } from "../Constants/Constants";
 import { SEARCH_LIST } from "../Constants/Constants";
 
 const initial = {
-  content: [],
+  content: JSON.parse(localStorage.getItem('noteList')) ?? [] ,
   id: "",
   editId: "",
   search: {
@@ -17,7 +17,6 @@ const initial = {
 export const reducers = (state = initial, action) => {
   switch (action.type) {
     case ADD_LIST:
-      console.log(action.payload);
       state = { ...state, content: [...state.content, action.payload] };
       return state;
     case DELETE_LIST:
@@ -30,6 +29,7 @@ export const reducers = (state = initial, action) => {
           ...state.content.filter((item) => item.id !== action.payload),
         ],
       };
+      localStorage.setItem('noteList', JSON.stringify(state.content))
       return state;
     case EDIT_LIST:
       state = { ...state, editId: action.payload };
