@@ -6,19 +6,20 @@ import { addList } from "./Redux/Actions/Action";
 
 function Add() {
   const today = new Date().toISOString().slice(0, 10);
-  const [danger, setDanger] = useState(false);
+  const [statusName, setStatusName] = useState(false);
+  const [statusDes, setStatusDes]=useState(false)
   const [user, setUser] = useState({
     name: "",
-    start: "",
+    start: today,
     finish: "",
     des: "",
     status: "UnComplete",
   });
   const dispatch = useDispatch();
   const handleAdd = () => {
-    setDanger(!danger);
+    setStatusName(user.name===''?true:false)
+    setStatusDes(user.des===''?true:false)
     user.name &&
-      user.start &&
       user.des &&
       dispatch(
         addList({
@@ -26,6 +27,13 @@ function Add() {
           user,
         })
       );
+      setUser({
+        name: "",
+        start: today,
+        finish: "",
+        des: "",
+        status: "UnComplete",
+      })
   };
   return (
     <>
@@ -57,7 +65,7 @@ function Add() {
                   setUser({ ...user, name: e.target.value });
                 }}
               />
-              {danger && user.name === "" && (
+              {statusName && user.name === "" && (
                 <small id="name" style={{ color: "red" }}>
                   Please enter the note name
                 </small>
@@ -73,17 +81,11 @@ function Add() {
                     className="form-control"
                     id="start"
                     min={today}
-                    aria-describedby="start"
                     value={user.start}
                     onChange={(e) => {
                       setUser({ ...user, start: e.target.value });
                     }}
                   />
-                  {danger && user.start === "" && (
-                    <small id="start" style={{ color: "red" }}>
-                      Please enter a start date
-                    </small>
-                  )}
                 </div>
                 <div className="col-6">
                   <label htmlFor="finished" style={{ fontWeight: "bold" }}>
@@ -92,7 +94,6 @@ function Add() {
                   <input
                     type="date"
                     min={today}
-                    defaultValue={today}
                     className="form-control"
                     id="finished"
                     value={user.finish}
@@ -116,7 +117,7 @@ function Add() {
                   setUser({ ...user, des: e.target.value });
                 }}
               />
-              {danger && user.des === "" && (
+              {statusDes && user.des === "" && (
                 <small id="des" style={{ color: "red" }}>
                   Please enter a detailed description
                 </small>

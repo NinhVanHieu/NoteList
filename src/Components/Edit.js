@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateList } from "./Redux/Actions/Action";
 
 function Edit() {
+  const today = new Date().toISOString().slice(0, 10);
   const dispatch = useDispatch();
   const data = useSelector((state) => state.list);
   const dataEdit = data.content.find((item) => item.id === data.editId);
@@ -48,6 +49,7 @@ function Edit() {
                     type="date"
                     className="form-control"
                     id="start"
+                    min={today}
                     value={user.start}
                     onChange={(e) =>
                       setUser({ ...user, start: e.target.value })
@@ -62,6 +64,7 @@ function Edit() {
                     type="date"
                     className="form-control"
                     id="finished"
+                    min={user.start}
                     value={user.finish}
                     onChange={(e) =>
                       setUser({ ...user, finish: e.target.value })
