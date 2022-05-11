@@ -4,18 +4,20 @@ import { REMOVE_LIST } from "../Constants/Constants";
 import { EDIT_LIST } from "../Constants/Constants";
 import { UPDATE_LIST } from "../Constants/Constants";
 import { SEARCH_LIST } from "../Constants/Constants";
-import { STATUS_LIST } from "../Constants/Constants";
 
 const initial = {
   content: [],
   id: "",
   editId: "",
-  search: "",
-  status: "",
+  search: {
+    nameSearch: "",
+    status: "All",
+  },
 };
 export const reducers = (state = initial, action) => {
   switch (action.type) {
     case ADD_LIST:
+      console.log(action.payload);
       state = { ...state, content: [...state.content, action.payload] };
       return state;
     case DELETE_LIST:
@@ -43,10 +45,8 @@ export const reducers = (state = initial, action) => {
       };
       return state;
     case SEARCH_LIST:
+      console.log(action.payload);
       state = { ...state, search: action.payload };
-      return state;
-    case STATUS_LIST:
-      state = { ...state, status: action.payload };
       return state;
     default:
       return state;

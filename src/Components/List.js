@@ -7,7 +7,6 @@ import { removeId } from "./Selecters/Selecter";
 import { removedList } from "./Redux/Actions/Action";
 import { editList } from "./Redux/Actions/Action";
 import { searchList } from "./Redux/Actions/Action";
-import { statusList } from "./Redux/Actions/Action";
 
 function List() {
   const data = useSelector(newAdd);
@@ -16,12 +15,10 @@ function List() {
   const handleDelete = () => {
     dispatch(removedList(dataId));
   };
-  const handleSearch = (e) => {
-    dispatch(searchList(e.target.value));
-  };
   const [search, setSearch] = useState();
+  const [searchStatus, setSearchStatus] = useState("All");
   const handleStatus = () => {
-    dispatch(statusList(search));
+    dispatch(searchList(search.trim(), searchStatus));
   };
   return (
     <>
@@ -44,16 +41,17 @@ function List() {
               type="search"
               className="form-control"
               placeholder="Search name..."
-              onChange={handleSearch}
+              onChange={(e) => setSearch(e.target.value)}
             />
           </div>
           <div className="col-3">
             <select
               className="form-control"
               id="status"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              value={searchStatus}
+              onChange={(e) => setSearchStatus(e.target.value)}
             >
+              <option value="All">All</option>
               <option value="Complete">Complete</option>
               <option value="UnComplete">UnComplete</option>
             </select>
@@ -93,40 +91,38 @@ function List() {
             <tbody>
               {data?.map((item) => {
                 return (
-                  <>
-                    <tr key={item.id}>
-                      <th scope="row">{item.id.slice(0, 2)}</th>
-                      <td>{item.user.name}</td>
-                      <td>{item.user.status}</td>
-                      <td>{item.user.start}</td>
-                      <td>{item.user.finish}</td>
-                      <td>
-                        <button
-                          type="button"
-                          className="btn btn-primary btn-block"
+                  <tr key={item.id}>
+                    <th scope="row">{item.id.slice(0, 2)}</th>
+                    <td>{item.user.name}</td>
+                    <td>{item.user.status}</td>
+                    <td>{item.user.start}</td>
+                    <td>{item.user.finish}</td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-primary btn-block"
+                      >
+                        <Link
+                          to="/edit"
+                          style={{ textDecoration: "none", color: "white" }}
+                          onClick={(e) => dispatch(editList(item.id))}
                         >
-                          <Link
-                            to="/edit"
-                            style={{ textDecoration: "none", color: "white" }}
-                            onClick={(e) => dispatch(editList(item.id))}
-                          >
-                            Edit
-                          </Link>
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          type="button"
-                          className="btn btn-danger btn-block"
-                          data-toggle="modal"
-                          data-target="#deleteModal"
-                          onClick={(e) => dispatch(deletedList(item.id))}
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  </>
+                          Edit
+                        </Link>
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-danger btn-block"
+                        data-toggle="modal"
+                        data-target="#deleteModal"
+                        onClick={(e) => dispatch(deletedList(item.id))}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
                 );
               })}
             </tbody>

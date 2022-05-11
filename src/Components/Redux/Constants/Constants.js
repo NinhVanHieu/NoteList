@@ -4,4 +4,3 @@ export const REMOVE_LIST = "REMOVE_LIST";
 export const EDIT_LIST = "EDIT_LIST";
 export const UPDATE_LIST = "UPDATE_LIST";
 export const SEARCH_LIST = "SEARCH_LIST";
-export const STATUS_LIST = "STATUS_LIST";

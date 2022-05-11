@@ -4,7 +4,6 @@ import { REMOVE_LIST } from "../Constants/Constants";
 import { EDIT_LIST } from "../Constants/Constants";
 import { UPDATE_LIST } from "../Constants/Constants";
 import { SEARCH_LIST } from "../Constants/Constants";
-import { STATUS_LIST } from "../Constants/Constants";
 
 export const addList = (action) => {
   return {
@@ -36,15 +35,9 @@ export const updateList = (id, user) => {
     payload: { id, user },
   };
 };
-export const searchList = (action) => {
+export const searchList = (nameSearch, status) => {
   return {
     type: SEARCH_LIST,
-    payload: action,
-  };
-};
-export const statusList = (action) => {
-  return {
-    type: STATUS_LIST,
-    payload: action,
+    payload: { nameSearch, status },
   };
 };

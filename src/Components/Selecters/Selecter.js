@@ -1,8 +1,14 @@
 export const newAdd = (state) =>
   state.list.content.filter((item) => {
-    return (
-      item.user.name.includes(state.list.search) &&
-      item.user.status.includes(state.list.status)
-    );
+    if (state.list.search.status === "All") {
+      return item.user.name.includes(state.list.search.nameSearch);
+    } else {
+      return (
+        item.user.name.includes(state.list.search.nameSearch) &&
+        (state.list.search.status === "Complete"
+          ? item.user.status === "Complete"
+          : item.user.status === "UnComplete")
+      );
+    }
   });
 export const removeId = (state) => state.list.id;
