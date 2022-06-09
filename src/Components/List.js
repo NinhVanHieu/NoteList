@@ -28,6 +28,7 @@ function List() {
           width: "900px",
           marginTop: "50px",
           backgroundColor: "rgb(249, 241, 241)",
+          minHeight:'500px'
         }}
       >
         <div className="header" style={{ textAlign: "center" }}>
