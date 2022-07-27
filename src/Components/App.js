@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 function App() {
   return (
     <Router>
-      <h1>Feature</h1>
+      <h2>Feature</h2>
       <Routes>
         <Route path="/" element={<List />} />
         <Route path="/add" element={<Add />} />
