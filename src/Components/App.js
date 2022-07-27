@@ -6,7 +6,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 function App() {
   return (
     <Router>
-      <h2>Feature</h2>
+      <h1 color="red">Feature NHieu</h1>
+      <span>hh</span>
       <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim,
         delectus. Mollitia porro eaque temporibus quos. Vero nihil eum ullam
